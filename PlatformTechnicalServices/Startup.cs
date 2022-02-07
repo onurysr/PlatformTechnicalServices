@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PlatformTechnicalServices.Data;
+using PlatformTechnicalServices.Models.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,33 @@ namespace PlatformTechnicalServices
             services.AddDbContext<MyContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("SqlConnection"));
+            });
+
+            services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
+            {
+                //þifre Gereksinimleri
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 6;
+
+                //lockout ayarlarý
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = false;
+
+                //user ayarlarý
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPRSTUVWXYZ0123456789-,_@+";
+                options.User.RequireUniqueEmail = true;
+            });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                //cookie ayarlarý
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.LoginPath = "/Account/Login";
+                options.AccessDeniedPath = "/Account/AccesDenied";
+                options.SlidingExpiration = true;
             });
 
             services.AddControllersWithViews();
