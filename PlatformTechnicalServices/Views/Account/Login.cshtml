@@ -1,4 +1,6 @@
-﻿@{
+﻿@model LoginViewModel
+
+@{
     ViewBag.Title = "Giriş Yap";
 }
 
@@ -12,32 +14,34 @@
                         <div class="mb-4">
                             <h1 style="text-align:center">@ViewBag.Title</h1>
                         </div>
-                        <form action="#" method="post">
+                        <form asp-controller="Account" asp-action="Login" method="post">
                             <div class="form-group first">
-                                <label for="username">Username</label>
-                                <input type="text" class="form-control" id="username">
+                                <label asp-for="UserName">Username</label>
+                                <input asp-for="UserName" class="form-control" />
+                                <span asp-validation-for="UserName" class="text-danger"></span>
 
                             </div>
                             <div class="form-group last mb-4">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-control" id="password">
+                                <label asp-for="Password">Password</label>
+                                <input asp-for="Password" class="form-control" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
 
                             </div>
 
                             <div class="d-flex mb-5 align-items-center">
-                                <label class="control control--checkbox mb-0">
-                                    <span class="caption">Remember me</span>
-                                    <input type="checkbox" checked="checked" />
-                                    <div class="control__indicator"></div>
-                                </label>
+                                <div class="control control--checkbox mb-0">
+                                    <span class="caption">Beni hatırla</span>
+                                    <input asp-for="RememberMe" type="checkbox" checked="checked"/>
+                                    <div class="control__indicator"></div>                    
+                                </div>
                                 <span class="ml-auto"><a href="#" class="forgot-pass">Şifremi Unuttum</a></span>
                             </div>
 
                             <input type="submit" value="Log In" class="btn text-white btn-block btn-primary">
 
-                            <a href="#" class="d-block text-left my-4 text-muted">Hesabınız yoksa kayıt olun</a>
+                            <a asp-controller="Account" asp-action="Register" class="d-block text-left my-4 text-muted">Hesabınız yoksa kayıt olun</a>
 
-                            <div class="social-login">
+                            @*<div class="social-login">
                                 <a href="#" class="facebook">
                                     <span class="icon-facebook mr-3"></span>
                                 </a>
@@ -47,7 +51,7 @@
                                 <a href="#" class="google">
                                     <span class="icon-google mr-3"></span>
                                 </a>
-                            </div>
+                            </div>*@
                         </form>
                     </div>
                 </div>
