@@ -1,7 +1,6 @@
 ﻿@{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Login";
 }
-
 
 
 <div class="content">
@@ -11,26 +10,11 @@
                 <div class="row justify-content-center">
                     <div class="col-md-8">
                         <div class="mb-4">
-                            <h1 style="text-align:center">Kayıt Ol</h1>
+                            <h1 style="text-align:center">Giriş Yap</h1>
                         </div>
-                        <form action="#" method="post" >
-                              <div class="form-group first">
-                                <label for="Name">Name</label>
-                                <input type="text" class="form-control" id="username">
-
-                            </div>
-                              <div class="form-group first">
-                                <label for="Surname">Surname</label>
-                                <input type="text" class="form-control" id="username">
-
-                            </div>
+                        <form action="#" method="post">
                             <div class="form-group first">
                                 <label for="username">Username</label>
-                                <input type="text" class="form-control" id="username">
-
-                            </div>
-                              <div class="form-group first">
-                                <label for="Mail">Mail</label>
                                 <input type="text" class="form-control" id="username">
 
                             </div>
@@ -39,17 +23,19 @@
                                 <input type="password" class="form-control" id="password">
 
                             </div>
-                             <div class="form-group last mb-4">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-control" id="password">
 
+                            <div class="d-flex mb-5 align-items-center">
+                                <label class="control control--checkbox mb-0">
+                                    <span class="caption">Remember me</span>
+                                    <input type="checkbox" checked="checked" />
+                                    <div class="control__indicator"></div>
+                                </label>
+                                <span class="ml-auto"><a href="#" class="forgot-pass">Şifremi Unuttum</a></span>
                             </div>
 
-                           
+                            <input type="submit" value="Log In" class="btn text-white btn-block btn-primary">
 
-                            <input type="submit" value="Giriş Yap" class="btn text-white btn-block btn-primary">
-
-                            <a href="#" class="d-block text-left my-4 text-muted">Hesabınız varsa giriş yapın</a>
+                            <a href="#" class="d-block text-left my-4 text-muted">Hesabınız yoksa kayıt olun</a>
 
                             <div class="social-login">
                                 <a href="#" class="facebook">
