@@ -47,7 +47,7 @@ namespace PlatformTechnicalServices
                 //user ayarlarý
                 options.User.AllowedUserNameCharacters = "abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPRSTUVWXYZ0123456789-,_@+";
                 options.User.RequireUniqueEmail = true;
-            });
+            }).AddEntityFrameworkStores<MyContext>();
 
             services.ConfigureApplicationCookie(options =>
             {
