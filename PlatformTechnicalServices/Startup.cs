@@ -77,8 +77,10 @@ namespace PlatformTechnicalServices
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting();
+            app.UseAuthentication();//login logout kullanmak için
 
+            app.UseRouting();
+           
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

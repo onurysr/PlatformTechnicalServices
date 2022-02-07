@@ -1,5 +1,4 @@
 ﻿@inject SignInManager<ApplicationUser> SignInManager
-
 <!-- ======= Header ======= -->
 <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
@@ -21,17 +20,17 @@
                 <li><a class="nav-link scrollto" href="#contact">İletişim</a></li>
                 @if (SignInManager.IsSignedIn(Context.User))
                 {
-                    <li><a class="getstarted scrollto" asp-action="Login" asp-controller="Account">Çıkış Yap</a></li>
+                    <li><a class="getstarted scrollto" asp-controller="Account" asp-action="Logout">Çıkış Yap</a></li>
                 }
                 else
                 {
-                    <li><a class="getstarted scrollto" asp-action="Login" asp-controller="Account">Giriş Yap</a></li>
-
+                    <li><a class="getstarted scrollto" asp-controller="Account" asp-action="Login">Giriş Yap</a></li>
                 }
             </ul>
+            
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->
 
-    </div>
-</header>
-<!-- End Header -->
+        </div>
+    </header>
+    <!-- End Header -->
