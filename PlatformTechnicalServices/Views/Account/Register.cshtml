@@ -1,5 +1,6 @@
-﻿@{
-    ViewData["Title"] = "Register";
+﻿@model RegisterViewModel;
+@{
+    ViewBag.Title = "Kayıt Ol";
 }
 
 
@@ -11,47 +12,52 @@
                 <div class="row justify-content-center">
                     <div class="col-md-8">
                         <div class="mb-4">
-                            <h1 style="text-align:center">Kayıt Ol</h1>
+                            <h1 style="text-align:center">@ViewBag.Title</h1>
                         </div>
-                        <form action="#" method="post" >
-                              <div class="form-group first">
-                                <label for="Name">Name</label>
-                                <input type="text" class="form-control" id="username">
-
+                        <form asp-controller="Account" asp-action="Register" method="post">
+                            <div class="form-group first">
+                                <label asp-for="Name"></label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
-                              <div class="form-group first">
-                                <label for="Surname">Surname</label>
-                                <input type="text" class="form-control" id="username">
+                            <div class="form-group first">
+                                <label asp-for="Surname"></label>
+                                <input asp-for="Surname" class="form-control" />
+                                <span asp-validation-for="Surname" class="text-danger"></span>
 
                             </div>
                             <div class="form-group first">
-                                <label for="username">Username</label>
-                                <input type="text" class="form-control" id="username">
+                                <label asp-for="UserName"></label>
+                                <input asp-for="UserName" class="form-control" />
+                                <span asp-validation-for="UserName" class="text-danger"></span>
 
                             </div>
-                              <div class="form-group first">
-                                <label for="Mail">Mail</label>
-                                <input type="text" class="form-control" id="username">
+                            <div class="form-group first">
+                                <label asp-for="Email"></label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
 
                             </div>
                             <div class="form-group last mb-4">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-control" id="password">
+                                <label asp-for="Password"></label>
+                                <input asp-for="Password" class="form-control" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
 
                             </div>
-                             <div class="form-group last mb-4">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-control" id="password">
+                            <div class="form-group last mb-4">
+                                <label asp-for="ConfirmPassword"></label>
+                                <input asp-for="ConfirmPassword" class="form-control" />
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
 
                             </div>
 
-                           
+
 
                             <input type="submit" value="Giriş Yap" class="btn text-white btn-block btn-primary">
 
-                            <a href="#" class="d-block text-left my-4 text-muted">Hesabınız varsa giriş yapın</a>
+                            <a asp-controller="Account" asp-action="Login" class="d-block text-left my-4 text-muted">Hesabınız varsa giriş yapın</a>
 
-                            <div class="social-login">
+@*                            <div class="social-login">
                                 <a href="#" class="facebook">
                                     <span class="icon-facebook mr-3"></span>
                                 </a>
@@ -61,7 +67,7 @@
                                 <a href="#" class="google">
                                     <span class="icon-google mr-3"></span>
                                 </a>
-                            </div>
+                            </div>*@
                         </form>
                     </div>
                 </div>
