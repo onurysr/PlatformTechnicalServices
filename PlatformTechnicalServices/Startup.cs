@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -48,7 +49,7 @@ namespace PlatformTechnicalServices
                 //user ayarlarý
                 options.User.AllowedUserNameCharacters = "abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPRSTUVWXYZ0123456789-,_@+";
                 options.User.RequireUniqueEmail = true;
-            }).AddEntityFrameworkStores<MyContext>();
+            }).AddEntityFrameworkStores<MyContext>().AddDefaultTokenProviders();
 
             services.ConfigureApplicationCookie(options =>
             {
