@@ -63,6 +63,7 @@ namespace PlatformTechnicalServices.Controllers
             {
                 //kullanıcıya rol atama
                 //email onay maili
+
                 //login sayfasına yönlendirme
                 return RedirectToAction("Index", "Home");
             }
