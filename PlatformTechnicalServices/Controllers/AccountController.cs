@@ -87,7 +87,7 @@ namespace PlatformTechnicalServices.Controllers
             {
                 //kullanıcıya rol atama
                 var count = _userManager.Users.Count();
-                result = await _userManager.AddToRoleAsync(user, count == 1 ? RoleModels.Admin : RoleModels.Musteri);
+                result = await _userManager.AddToRoleAsync(user, count == 1 ? RoleModels.Admin : RoleModels.Passive);
                 //email onay maili
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
