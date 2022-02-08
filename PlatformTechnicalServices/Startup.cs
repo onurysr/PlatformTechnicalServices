@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PlatformTechnicalServices.Data;
 using PlatformTechnicalServices.Models.Identity;
+using PlatformTechnicalServices.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,6 +58,8 @@ namespace PlatformTechnicalServices
                 options.AccessDeniedPath = "/Account/AccesDenied";
                 options.SlidingExpiration = true;
             });
+
+            services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddControllersWithViews();
         }
