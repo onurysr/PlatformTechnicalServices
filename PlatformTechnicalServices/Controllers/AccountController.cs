@@ -109,7 +109,7 @@ namespace PlatformTechnicalServices.Controllers
 
 
 
-                return RedirectToAction("Login", "Home");
+                return RedirectToAction("Login", "Account");
 
 
             }
