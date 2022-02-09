@@ -312,6 +312,19 @@ namespace PlatformTechnicalServices.Controllers
             }
             return View();
         }
+
+        [AllowAnonymous]
+        public IActionResult ConfirmResetPassword(string userId, string code)
+        {
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(code))
+            {
+                return BadRequest("Hatalı istek");
+            }
+
+            ViewBag.Code = code;
+            ViewBag.UserId = userId;
+            return View();
+        }
     }
 
 }
