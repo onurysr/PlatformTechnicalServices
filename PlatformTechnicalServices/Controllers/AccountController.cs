@@ -266,11 +266,11 @@ namespace PlatformTechnicalServices.Controllers
             var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
             if (result.Succeeded)
             {
-                ViewBag.mesaj = "Şifre Güncelleme İşlemi Başarılı";
+                TempData["mesaj"] = "Şifre Güncelleme İşlemi Başarılı";
             }
             else
             {
-                ViewBag.mesaj = $"Bir hata Oluştu:{ModelState.ToFullErrorString()}";
+                TempData["mesaj"] = $"Bir hata Oluştu:{ModelState.ToFullErrorString()}";
                 return View();
             }
 
