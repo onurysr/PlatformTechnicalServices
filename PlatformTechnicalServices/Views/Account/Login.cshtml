@@ -14,6 +14,7 @@
                         <div class="mb-4">
                             <h1 style="text-align:center">@ViewBag.Title</h1>
                         </div>
+                        <div class="text-info">@ViewBag.Message</div>
                         <form asp-controller="Account" asp-action="Login" method="post">
                             <div class="form-group first">
                                 <label asp-for="UserName">Username</label>
@@ -31,8 +32,8 @@
                             <div class="d-flex mb-5 align-items-center">
                                 <div class="control control--checkbox mb-0">
                                     <span class="caption">Beni hatırla</span>
-                                    <input asp-for="RememberMe" type="checkbox" checked="checked"/>
-                                    <div class="control__indicator"></div>                    
+                                    <input asp-for="RememberMe" type="checkbox" checked="checked" />
+                                    <div class="control__indicator"></div>
                                 </div>
                                 <span class="ml-auto"><a href="#" class="forgot-pass">Şifremi Unuttum</a></span>
                             </div>
@@ -42,16 +43,16 @@
                             <a asp-controller="Account" asp-action="Register" class="d-block text-left my-4 text-muted">Hesabınız yoksa kayıt olun</a>
 
                             @*<div class="social-login">
-                                <a href="#" class="facebook">
-                                    <span class="icon-facebook mr-3"></span>
-                                </a>
-                                <a href="#" class="twitter">
-                                    <span class="icon-twitter mr-3"></span>
-                                </a>
-                                <a href="#" class="google">
-                                    <span class="icon-google mr-3"></span>
-                                </a>
-                            </div>*@
+                <a href="#" class="facebook">
+                    <span class="icon-facebook mr-3"></span>
+                </a>
+                <a href="#" class="twitter">
+                    <span class="icon-twitter mr-3"></span>
+                </a>
+                <a href="#" class="google">
+                    <span class="icon-google mr-3"></span>
+                </a>
+            </div>*@
                         </form>
                     </div>
                 </div>

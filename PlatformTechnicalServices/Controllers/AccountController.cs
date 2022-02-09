@@ -93,7 +93,6 @@ namespace PlatformTechnicalServices.Controllers
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                 var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code },
                     protocol: Request.Scheme);
-
                 var emailMessage = new EmailMessage()
                 {
                     Contacts = new string[] { user.Email },
@@ -104,10 +103,7 @@ namespace PlatformTechnicalServices.Controllers
 
                 await _emailSender.SendAsync(emailMessage);
 
-
                 //login sayfasına yönlendirme
-
-
 
                 return RedirectToAction("Login", "Account");
 
@@ -134,11 +130,20 @@ namespace PlatformTechnicalServices.Controllers
                 return View(model);
             }
 
-            var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, true);
+            var user = await _userManager.FindByNameAsync(model.UserName);
 
-            if (result.Succeeded)
+            var roles = await _userManager.GetRolesAsync(user);
+            if (roles[0] == "Passive")
             {
-                return RedirectToAction("Index", "Home");
+                ViewBag.Message = "Lütfen Mail üzerinden Hesabınızı Aktive ediniz.";
+                return View(model);
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, true);
+  
+            if (result.Succeeded)
+            { 
+                    return RedirectToAction("Index", "Home");            
             }
             else
             {
