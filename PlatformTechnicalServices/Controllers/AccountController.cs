@@ -242,6 +242,36 @@ namespace PlatformTechnicalServices.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        [Authorize]
+        public IActionResult UpdatePassword()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> UpdatePassword(PasswordChangeViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var user = await _userManager.FindByIdAsync(HttpContext.GetUserId());
+
+            var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+            if (result.Succeeded)
+            {
+                ViewBag.Message = "Şifre Güncelleme İşlemi Başarılı";
+            }
+            else
+            {
+                ViewBag.Message = $"Bir hata Oluştu:{ModelState.ToFullErrorString()}";
+            }
+
+            return RedirectToAction("Profile", "Account");
+
+
+        }
     }
 }
