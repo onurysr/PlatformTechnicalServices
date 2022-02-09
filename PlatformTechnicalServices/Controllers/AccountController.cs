@@ -193,6 +193,10 @@ namespace PlatformTechnicalServices.Controllers
         public async Task<IActionResult> Profile()
         {
             var user = await _userManager.FindByIdAsync(HttpContext.GetUserId());
+            if (true)
+            {
+
+            }
             var model = new UserProfileViewModel()
             {
                 Email = user.Email,
@@ -262,11 +266,12 @@ namespace PlatformTechnicalServices.Controllers
             var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
             if (result.Succeeded)
             {
-                ViewBag.Message = "Şifre Güncelleme İşlemi Başarılı";
+                ViewBag.mesaj = "Şifre Güncelleme İşlemi Başarılı";
             }
             else
             {
-                ViewBag.Message = $"Bir hata Oluştu:{ModelState.ToFullErrorString()}";
+                ViewBag.mesaj = $"Bir hata Oluştu:{ModelState.ToFullErrorString()}";
+                return View();
             }
 
             return RedirectToAction("Profile", "Account");

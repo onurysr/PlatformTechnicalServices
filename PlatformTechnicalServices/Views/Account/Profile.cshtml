@@ -14,7 +14,7 @@
                             <h1 style="text-align:center">@ViewBag.Title</h1>
                             <h1 style="text-align:center">Profil Sayfası</h1>
                         </div>
-                        <div class="text-danger">@ViewBag.Message</div>
+                        <div class="text-danger">@ViewBag.mesaj</div>
                         <form asp-controller="Account" asp-action="Profile" method="post">
                             <div class="form-group first">
                                 <label asp-for="Name"></label>
@@ -36,7 +36,7 @@
 
                             <input type="submit" value="Güncelle" class="btn text-white btn-block btn-primary">
 
-                            <a asp-controller="Account" asp-action="Profile" class="d-block text-left my-4 text-muted">Şifremi Güncelle</a>
+                            <a asp-controller="Account" asp-action="UpdatePassword" class="d-block text-left my-4 text-muted">Şifremi Güncelle</a>
 
                         </form>
                     </div>
