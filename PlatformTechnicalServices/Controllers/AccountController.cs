@@ -141,10 +141,10 @@ namespace PlatformTechnicalServices.Controllers
             }
 
             var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, true);
-  
+
             if (result.Succeeded)
-            { 
-                    return RedirectToAction("Index", "Home");            
+            {
+                return RedirectToAction("Index", "Home");
             }
             else
             {
@@ -275,8 +275,44 @@ namespace PlatformTechnicalServices.Controllers
             }
 
             return RedirectToAction("Profile", "Account");
+        }
+        [AllowAnonymous]
+        public IActionResult ResetPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                ViewBag.Message = "Girdiğiniz email bulunamadu";
+            }
+            else
+            {
+                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                var callbackUrl = Url.Action("ConfirmResetPassword", "Account", new
+                {
+                    userId = user.Id,
+                    code = code
+                },
+                    protocol: Request.Scheme);
 
-
+                var emailMessage = new EmailMessage()
+                {
+                    Contacts = new string[] { user.Email },
+                    Body =
+                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>Click Here</a>",
+                    Subject = "Reset Password"
+                };
+                await _emailSender.SendAsync(emailMessage);
+                ViewBag.Message = "Mailinize Şifre güncelleme yönergemiz gönderilmiştir.";
+            }
+            return View();
         }
     }
+
 }
+
