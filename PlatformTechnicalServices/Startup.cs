@@ -63,6 +63,8 @@ namespace PlatformTechnicalServices
 
             services.AddTransient<IEmailSender, EmailSender>();
 
+            services.AddScoped<IPaymentService, IyzicoPaymentService>();
+
             services.AddAutoMapper(options =>
             {
                 options.AddProfile<PaymentProfile>();
