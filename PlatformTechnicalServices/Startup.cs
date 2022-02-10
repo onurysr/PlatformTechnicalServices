@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PlatformTechnicalServices.Data;
+using PlatformTechnicalServices.MapperProfiles;
 using PlatformTechnicalServices.Models.Identity;
 using PlatformTechnicalServices.Services;
 using System;
@@ -61,6 +62,11 @@ namespace PlatformTechnicalServices
             });
 
             services.AddTransient<IEmailSender, EmailSender>();
+
+            services.AddAutoMapper(options =>
+            {
+                options.AddProfile<PaymentProfile>();
+            });
 
             services.AddControllersWithViews();
         }

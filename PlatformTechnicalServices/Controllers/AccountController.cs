@@ -267,6 +267,7 @@ namespace PlatformTechnicalServices.Controllers
             if (result.Succeeded)
             {
                 TempData["mesaj"] = "Şifre Güncelleme İşlemi Başarılı";
+                return RedirectToAction("Logout", "Account");
             }
             else
             {
