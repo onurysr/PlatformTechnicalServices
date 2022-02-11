@@ -282,7 +282,7 @@ namespace PlatformTechnicalServices.Controllers
                 return View();
             }
 
-            return RedirectToAction("Profile", "Account");
+            //return RedirectToAction("Profile", "Account");
         }
         [AllowAnonymous]
         public IActionResult ResetPassword()
