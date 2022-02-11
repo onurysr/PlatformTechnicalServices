@@ -144,7 +144,14 @@ namespace PlatformTechnicalServices.Controllers
 
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Home");
+                if (roles[0] =="Admin")
+                {
+                    return LocalRedirect("~/Admin/Manage/Index");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
             else
             {
