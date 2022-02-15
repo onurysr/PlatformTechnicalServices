@@ -1,0 +1,27 @@
+﻿@model IQueryable<ApplicationUser>
+<h1>Users</h1>
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>Adı</th>
+        <th>Mail</th>
+        <th>Oluşturma tarihi</th>
+        <th>UserName</th>
+        <th>Pasif mi</th>
+        <th>Detaylar</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Email</td>
+            <td>@item.CreatedDate.ToShortDateString()</td>
+            <td>@item.UserName</td>
+            <td>@item.EmailConfirmed</td>
+            <td><a href="~/Admin/Manage/Details/@item.Id" class="btn btn-success">Detaylar</a></td>
+        </tr>
+    }
+
+
+</table>
