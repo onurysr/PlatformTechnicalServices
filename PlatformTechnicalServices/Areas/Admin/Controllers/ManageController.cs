@@ -2,7 +2,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using PlatformTechnicalServices.Models;
 using PlatformTechnicalServices.Models.Identity;
+using PlatformTechnicalServices.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -26,12 +29,36 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
         }
         public IActionResult Users()
         {
-            var a = _userManager.Users;
-            return View(a);
+            var users = _userManager.Users;
+            return View(users);
         }
         public async Task<IActionResult> Details(string? id)
         {
+            var roles = _roleManager.Roles;
+            var user =await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
+            var c = _userManager.GetRolesAsync(user);
+            var roleList = new List<UserDetailRolesViewModel>();
+            foreach (var item in roles)
+            {
+                roleList.Add(new UserDetailRolesViewModel
+                {
+                    RoleId = item.Id,
+                    RoleName = item.Name
+                });
+            }
+
+
             var a = await _userManager.FindByIdAsync(id);
+
+            var model = new UserDetailViewModel()
+            {
+                Name = a.Name,
+                UserName = a.UserName,
+                CreatedDate = a.CreatedDate,
+                Email = a.Email,
+                IsActive = a.EmailConfirmed,
+                Roles = roleList
+            };
             ViewBag.Roles = GetRoleList();
             return View(a);
         }
