@@ -34,33 +34,31 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Details(string? id)
         {
-            var roles = _roleManager.Roles;
-            var user =await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
-            var c = _userManager.GetRolesAsync(user);
-            var roleList = new List<UserDetailRolesViewModel>();
-            foreach (var item in roles)
-            {
-                roleList.Add(new UserDetailRolesViewModel
-                {
-                    RoleId = item.Id,
-                    RoleName = item.Name
-                });
-            }
-
-
-            var a = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(id);
+            var userRoles = await _userManager.GetRolesAsync(user);
 
             var model = new UserDetailViewModel()
             {
-                Name = a.Name,
-                UserName = a.UserName,
-                CreatedDate = a.CreatedDate,
-                Email = a.Email,
-                IsActive = a.EmailConfirmed,
-                Roles = roleList
+                Id = user.Id,
+                Name = user.Name,
+                UserName = user.UserName,
+                CreatedDate = user.CreatedDate,
+                Email = user.Email,
+                IsActive = user.EmailConfirmed,
+                UserRoles = userRoles
             };
-            ViewBag.Roles = GetRoleList();
-            return View(a);
+
+            var roleList = GetRoleList();
+            foreach (var role in roleList)
+            {
+                if (userRoles.Contains(role.Text))
+                {
+                    role.Selected = true;
+                }
+            }
+
+            ViewBag.Roles = roleList;
+            return View(model);
         }
 
         private List<SelectListItem> GetRoleList()

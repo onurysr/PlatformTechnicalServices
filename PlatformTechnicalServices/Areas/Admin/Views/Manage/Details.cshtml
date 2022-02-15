@@ -1,34 +1,25 @@
-﻿@model ApplicationUser
+﻿@model UserDetailViewModel
 <h1>Kullanıcı detay sayfası</h1>
 
-@{
-    var role = "";
-    foreach (var item in ViewBag.Roles)
-    {
-        if (Model.Id == item.Id)
-        {
-           role = item;
-        }
-    }
-    
-}
 <table class="table table-bordered">
     <tr>
         <th>Adı</th>
         <th>Mail</th>
         <th>Oluşturma tarihi</th>
         <th>UserName</th>
-        <th>Pasif mi</th>
-        <th>Rol</th>
+        <th>Rolü</th>
     </tr>
     <tr>
         <td>@Model.Name</td>
         <td>@Model.Email</td>
         <td>@Model.CreatedDate</td>
         <td>@Model.UserName</td>
-        <td>@Model.EmailConfirmed</td>
         <td>
-            <select asp-for="Id" asp-items="ViewBag.Roles" ></select>
+            <select asp-for="SelectedRoleId" asp-items="ViewBag.Roles" class="btn btn-danger dropdown-toggle"></select>
+        </td>
+        <td>
+            <a asp-action="Update" class="btn btn-danger">Güncelle</a>
+            <a asp-action="Delete" class="btn btn-dark">Sil</a>
         </td>
 
     </tr>
