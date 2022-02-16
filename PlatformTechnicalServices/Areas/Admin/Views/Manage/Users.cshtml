@@ -1,7 +1,9 @@
 ﻿@model IQueryable<ApplicationUser>
 <h1>Users</h1>
 
-
+<div class="text-info">
+   @TempData["mesaj"] 
+</div>
 <table class="table table-bordered">
     <tr>
         <th>Adı</th>
