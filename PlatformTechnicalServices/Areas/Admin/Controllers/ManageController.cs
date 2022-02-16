@@ -75,7 +75,7 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async  Task<IActionResult> Update(string? id)
+        public async Task<IActionResult> Update(string? id)
         {
             var user = await _userManager.FindByIdAsync(id);
             var userRoles = await _userManager.GetRolesAsync(user);
@@ -101,24 +101,39 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async  Task<IActionResult> Update(UserDetailViewModel model)
+        public async Task<IActionResult> Update(UserDetailViewModel model)
         {
             var user = await _userManager.FindByIdAsync(model.Id);
-            var userRoles = await _userManager.GetRolesAsync(user);
+            if (user == null) return NotFound();
 
+            //Kullanıcı update işlemleri
             user.Name = model.Name;
             user.UserName = model.UserName;
-            
-
 
             var result = await _userManager.UpdateAsync(user);
-
             if (!result.Succeeded)
+            {
+                ModelState.AddModelError(string.Empty, ModelState.ToFullErrorString());
+            }    
+            //Kullanıcı Rol işlemleri
+            
+            var userRoles = await _userManager.GetRolesAsync(user);
+            foreach (var role in userRoles)
+            {
+                var roleRemove = await _userManager.RemoveFromRoleAsync(user, role);
+            }
+
+            var selectedRole = await _roleManager.FindByIdAsync(model.SelectedRoleId);
+            var roleAdd = await _userManager.AddToRoleAsync(user, selectedRole.Name);
+
+            if (!roleAdd.Succeeded)
             {
                 ModelState.AddModelError(string.Empty, ModelState.ToFullErrorString());
             }
 
-            return View(model);
+            TempData["mesaj"] = "Güncelleme işlemi başarılı";
+
+            return LocalRedirect($"~/admin/manage/update/{user.Id}");
         }
     }
 }
