@@ -1,0 +1,49 @@
+﻿@model UserDetailViewModel
+@{
+    ViewBag.Title = "Güncelleme Sayfası";
+}
+
+
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-12 contents">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="mb-4">
+                            <h1 style="text-align:center">@ViewBag.Title</h1>
+                        </div>
+                        <div class="text-danger">@TempData["mesaj"]</div>
+                        <form asp-controller="Manage" asp-action="Update" asp-area="Admin" method="post">
+                            <div class="form-group first">
+                                <label asp-for="Name"></label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group first">
+                                <label asp-for="Email"></label>
+                                <input  asp-for="Email" disabled="disabled" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+
+                            </div>
+                            <div class="form-group first">
+                                <label asp-for="UserName"></label>
+                                <input asp-for="UserName" class="form-control" />
+                                <span asp-validation-for="UserName" class="text-danger"></span>
+
+                            </div>
+                            <div class="form-group first">
+                                <select asp-for="SelectedRoleId" asp-items="ViewBag.Roles" class="btn btn-danger dropdown-toggle"></select>
+                            </div>
+
+                            <input type="submit" value="Güncelle" class="btn text-white btn-block btn-primary">
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

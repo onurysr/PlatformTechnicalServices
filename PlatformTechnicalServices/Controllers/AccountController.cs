@@ -200,10 +200,7 @@ namespace PlatformTechnicalServices.Controllers
         public async Task<IActionResult> Profile()
         {
             var user = await _userManager.FindByIdAsync(HttpContext.GetUserId());
-            if (true)
-            {
 
-            }
             var model = new UserProfileViewModel()
             {
                 Email = user.Email,

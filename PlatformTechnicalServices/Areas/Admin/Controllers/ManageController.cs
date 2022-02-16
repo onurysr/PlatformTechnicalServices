@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using PlatformTechnicalServices.Extensions;
 using PlatformTechnicalServices.Models;
 using PlatformTechnicalServices.Models.Identity;
 using PlatformTechnicalServices.ViewModels;
@@ -71,6 +72,53 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
                 rolList.Add(new SelectListItem(role.Name, role.Id.ToString()));
             }
             return rolList;
+        }
+
+        [HttpGet]
+        public async  Task<IActionResult> Update(string? id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            var model = new UserDetailViewModel()
+            {
+                Email = user.Email,
+                Name = user.Name,
+                UserName = user.UserName,
+                UserRoles = userRoles
+            };
+            var roleList = GetRoleList();
+            foreach (var role in roleList)
+            {
+                if (userRoles.Contains(role.Text))
+                {
+                    role.Selected = true;
+                }
+            }
+
+            ViewBag.Roles = roleList;
+            return View(model);
+        }
+
+        [HttpPost]
+        public async  Task<IActionResult> Update(UserDetailViewModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.Id);
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            user.Name = model.Name;
+            user.UserName = model.UserName;
+            
+
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError(string.Empty, ModelState.ToFullErrorString());
+            }
+
+            return View(model);
         }
     }
 }

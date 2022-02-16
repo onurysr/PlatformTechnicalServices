@@ -18,7 +18,7 @@
             <select asp-for="SelectedRoleId" asp-items="ViewBag.Roles" class="btn btn-danger dropdown-toggle"></select>
         </td>
         <td>
-            <a asp-action="Update" class="btn btn-danger">Güncelle</a>
+            <a href="~/Admin/Manage/Update/@Model.Id" class="btn btn-danger">Güncelle</a>
             <a asp-action="Delete" class="btn btn-dark">Sil</a>
         </td>
 
