@@ -108,9 +108,6 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
 
             user.Name = model.Name;
             user.UserName = model.UserName;
-            
-
-
             var result = await _userManager.UpdateAsync(user);
 
             if (!result.Succeeded)
@@ -119,6 +116,23 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
             }
 
             return View(model);
+        }
+
+        public async Task<IActionResult> Delete(string? id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user==null)
+            {
+                return NotFound("Böyle bir Kullanıcı yok");
+            }
+
+            var result = await _userManager.DeleteAsync(user);
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError(string.Empty, ModelState.ToFullErrorString());
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }
