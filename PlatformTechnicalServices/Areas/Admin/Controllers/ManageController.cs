@@ -150,8 +150,6 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
             TempData["mesaj"] = "Silme işlemi başarılı";
 
             return LocalRedirect($"~/admin/manage/users");
-
-
         }
 
 

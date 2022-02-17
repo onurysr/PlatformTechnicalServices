@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using PlatformTechnicalServices.Models.Entities;
 using PlatformTechnicalServices.Models.Identity;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ namespace PlatformTechnicalServices.Data
         {
 
         }
+
+        public DbSet<FaultPrices> FaultPrices { get; set; }
     }
     
 }
