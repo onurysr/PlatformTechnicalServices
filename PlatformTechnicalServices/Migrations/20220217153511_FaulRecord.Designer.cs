@@ -10,8 +10,8 @@ using PlatformTechnicalServices.Data;
 namespace PlatformTechnicalServices.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20220217144331_ArızaFiyatTablosuEklendi")]
-    partial class ArızaFiyatTablosuEklendi
+    [Migration("20220217153511_FaulRecord")]
+    partial class FaulRecord
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -141,6 +141,52 @@ namespace PlatformTechnicalServices.Migrations
                     b.HasKey("FaultId");
 
                     b.ToTable("FaultPrices");
+                });
+
+            modelBuilder.Entity("PlatformTechnicalServices.Models.Entities.FaultRecord", b =>
+                {
+                    b.Property<int>("FaultId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("AtanmaDurumu")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("CompletionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FaultCreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("TechnicianAssignmentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TeknisyenId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<decimal?>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("FaultId");
+
+                    b.HasIndex("TeknisyenId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FaultRecords");
                 });
 
             modelBuilder.Entity("PlatformTechnicalServices.Models.Identity.ApplicationRole", b =>
@@ -301,6 +347,21 @@ namespace PlatformTechnicalServices.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("PlatformTechnicalServices.Models.Entities.FaultRecord", b =>
+                {
+                    b.HasOne("PlatformTechnicalServices.Models.Identity.ApplicationUser", "Teknisyen")
+                        .WithMany()
+                        .HasForeignKey("TeknisyenId");
+
+                    b.HasOne("PlatformTechnicalServices.Models.Identity.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Teknisyen");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

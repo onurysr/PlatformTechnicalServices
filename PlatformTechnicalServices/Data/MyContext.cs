@@ -17,6 +17,7 @@ namespace PlatformTechnicalServices.Data
         }
 
         public DbSet<FaultPrices> FaultPrices { get; set; }
+        public DbSet<FaultRecord> FaultRecords { get; set; }
     }
     
 }

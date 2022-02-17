@@ -10,8 +10,8 @@ using PlatformTechnicalServices.Data;
 namespace PlatformTechnicalServices.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20220204172229_init")]
-    partial class init
+    [Migration("20220217153316_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -123,6 +123,24 @@ namespace PlatformTechnicalServices.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("PlatformTechnicalServices.Models.Entities.FaultPrices", b =>
+                {
+                    b.Property<int>("FaultId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FaultName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("FaultPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("FaultId");
+
+                    b.ToTable("FaultPrices");
                 });
 
             modelBuilder.Entity("PlatformTechnicalServices.Models.Identity.ApplicationRole", b =>
