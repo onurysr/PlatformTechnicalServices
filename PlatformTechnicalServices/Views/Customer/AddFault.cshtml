@@ -1,1 +1,89 @@
-﻿
+﻿@model AddFaultViewModel
+
+@{
+    ViewBag.Title = "Ârıza Bildirimi Ver";
+}
+
+@section Styles {
+<style>
+    .text-back {
+        background-color:blue;
+    }
+</style>
+}
+
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-12 contents">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="mb-4">
+                            <h1 style="text-align:center">@ViewBag.Title</h1>
+                        </div>
+                        <form asp-controller="Customer" asp-action="AddFault" method="post">
+                            <div class="form-group first text-back">
+                                <input type="text" disabled="disabled" value="@ViewBag.UserName" class="form-control text-back" />
+                            </div>
+                            <div class="form-group first text-back">
+                                <input type="text" disabled="disabled" value="@ViewBag.Email" class="form-control text-back" />
+                            </div>
+                            @*
+                            <div class="form-group first">
+                                <label asp-for=""></label>
+                                <input asp-for="" class="form-control" />
+                                <span asp-validation-for="" class="text-danger"></span>
+
+                                </div>
+                                
+                                <div class="form-group first">
+                                <label asp-for="UserName"></label>
+                                <input asp-for="UserName" class="form-control" />
+                                <span asp-validation-for="UserName" class="text-danger"></span>
+
+                                </div>
+                                <div class="form-group first">
+                                <label asp-for="Email"></label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+
+                                </div>
+                                <div class="form-group last mb-4">
+                                <label asp-for="Password"></label>
+                                <input asp-for="Password" class="form-control" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+
+                                </div>
+                                <div class="form-group last mb-4">
+                                <label asp-for="ConfirmPassword"></label>
+                                <input asp-for="ConfirmPassword" class="form-control" />
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+
+                                </div>*@
+
+
+
+                            <input type="submit" value="Kayıt Ol" class="btn text-white btn-block btn-primary">
+
+                            <a asp-controller="Account" asp-action="Login" class="d-block text-left my-4 text-muted">Hesabınız varsa giriş yapın</a>
+
+                            @*                            <div class="social-login">
+                                <a href="#" class="facebook">
+                                <span class="icon-facebook mr-3"></span>
+                                </a>
+                                <a href="#" class="twitter">
+                                <span class="icon-twitter mr-3"></span>
+                                </a>
+                                <a href="#" class="google">
+                                <span class="icon-google mr-3"></span>
+                                </a>
+                                </div>*@
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
