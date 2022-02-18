@@ -6,6 +6,7 @@ using PlatformTechnicalServices.Extensions;
 using PlatformTechnicalServices.Models.Entities;
 using PlatformTechnicalServices.Models.Identity;
 using PlatformTechnicalServices.ViewModels;
+using System;
 using System.Threading.Tasks;
 
 namespace PlatformTechnicalServices.Controllers
@@ -34,18 +35,33 @@ namespace PlatformTechnicalServices.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddFault(AddFaultViewModel addFaultViewModel)
+        public async Task<IActionResult> AddFault(AddFaultViewModel model)
         {
-            var model = new FaultRecord
+            var user = await _userManager.FindByIdAsync(HttpContext.GetUserId());
+            var data = new FaultRecord
             {
-                PhoneNumber = addFaultViewModel.PhoneNumber
+                PhoneNumber = model.PhoneNumber,
+                Address = model.Address,
+                AtanmaDurumu = false,
+                Description = model.Description,
+                FaultCreateDate = DateTime.Now,
+                UserId=user.Id
             };
 
-            _DbContext.FaultRecords.Add(model);
-            _DbContext.SaveChanges();
-            
+            _DbContext.FaultRecords.Add(data);
 
-            return View();
+            try
+            {
+                _DbContext.SaveChanges();
+                TempData["message"] = "Arıza kaydı başarılı bir şekilde oluşturuldu.";
+                return RedirectToAction("Index","Home");
+            }
+            catch (Exception)
+            {
+               ModelState.AddModelError(string.Empty, ModelState.ToFullErrorString());
+                return View(model);
+            }
+
         }
     }
 }
