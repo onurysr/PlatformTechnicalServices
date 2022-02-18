@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PlatformTechnicalServices.Data;
 using PlatformTechnicalServices.Extensions;
+using PlatformTechnicalServices.Models.Entities;
 using PlatformTechnicalServices.Models.Identity;
 using PlatformTechnicalServices.ViewModels;
 using System.Threading.Tasks;
@@ -13,9 +15,12 @@ namespace PlatformTechnicalServices.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public CustomerController(UserManager<ApplicationUser> userManager)
+        private readonly MyContext _DbContext;
+
+        public CustomerController(UserManager<ApplicationUser> userManager,MyContext Dbcontext)
         {
             _userManager = userManager;
+            _DbContext = Dbcontext;
         }
 
         [HttpGet]
@@ -31,6 +36,15 @@ namespace PlatformTechnicalServices.Controllers
         [HttpPost]
         public IActionResult AddFault(AddFaultViewModel addFaultViewModel)
         {
+            var model = new FaultRecord
+            {
+                PhoneNumber = addFaultViewModel.PhoneNumber
+            };
+
+            _DbContext.FaultRecords.Add(model);
+            _DbContext.SaveChanges();
+            
+
             return View();
         }
     }
