@@ -59,9 +59,9 @@ namespace PlatformTechnicalServices.Controllers
             catch (Exception)
             {
                ModelState.AddModelError(string.Empty, ModelState.ToFullErrorString());
+                TempData["message"] = "Arıza kaydı Oluşturulamadı.";
                 return View(model);
             }
-
         }
     }
 }

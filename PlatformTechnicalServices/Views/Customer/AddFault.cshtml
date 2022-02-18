@@ -5,11 +5,11 @@
 }
 
 @section Styles {
-<style>
-    .text-back {
-        background-color:blue;
-    }
-</style>
+    <style>
+        .text-back {
+            background-color: blue;
+        }
+    </style>
 }
 
 <div class="content">
@@ -28,31 +28,31 @@
                             <div class="form-group first text-back">
                                 <input type="text" disabled="disabled" value="@ViewBag.Email" class="form-control text-back" />
                             </div>
-                            
+
                             <div class="form-group first">
                                 <label asp-for="PhoneNumber"></label>
                                 <input asp-for="PhoneNumber" class="form-control" />
                                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
 
                             </div>
-                                
-                                <div class="form-group first">
+
+                            <div class="form-group first">
                                 <label asp-for="Address"></label>
                                 <input asp-for="Address" class="form-control" />
                                 <span asp-validation-for="Address" class="text-danger"></span>
 
-                                </div>
-                                
-                                <div class="form-group first">
+                            </div>
+
+                            <div class="form-group first">
                                 <label asp-for="Description"></label>
                                 <input asp-for="Description" class="form-control" />
                                 <span asp-validation-for="Description" class="text-danger"></span>
 
-                                </div>
+                            </div>
 
 
 
-                            <input type="submit" value="Arıza Bildirimi Ver" class="btn text-white btn-block btn-primary">
+                            <input type="submit" value="Arıza Bildirimi Ver" id="btnAriza" class="btn text-white btn-block btn-primary">
 
                         </form>
                     </div>
@@ -63,3 +63,12 @@
         </div>
     </div>
 </div>
+
+@section Scripts{
+
+    <script>
+        var ariza = document.getElementById("btnAriza");
+        ariza.onclick = function () {
+            window.alert(@TempData["Message"])}
+    </script>
+}
