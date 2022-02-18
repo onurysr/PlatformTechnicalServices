@@ -53,13 +53,13 @@ namespace PlatformTechnicalServices.Controllers
             try
             {
                 _DbContext.SaveChanges();
-                TempData["message"] = "Arıza kaydı başarılı bir şekilde oluşturuldu.";
-                return RedirectToAction("Index","Home");
+                TempData["message"] = "1";
+                return View();
             }
             catch (Exception)
             {
                ModelState.AddModelError(string.Empty, ModelState.ToFullErrorString());
-                TempData["message"] = "Arıza kaydı Oluşturulamadı.";
+                TempData["message"] = "2";
                 return View(model);
             }
         }

@@ -57,8 +57,9 @@
                         </form>
                     </div>
                 </div>
+                </div>
 
-            </div>
+                <h2></h2>
 
         </div>
     </div>
@@ -67,8 +68,12 @@
 @section Scripts{
 
     <script>
-        var ariza = document.getElementById("btnAriza");
-        ariza.onclick = function () {
-            window.alert(@TempData["Message"])}
+        var message = '@TempData["message"]';
+
+        if(message == "1"){
+             window.alert("Arıza kaydı başarılı bir şekilde oluşturuldu.");
+        }else if(message == "2"){
+            window.alert("HATA!!,Arıza kaydı Oluşturulamadı.");
+        }
     </script>
 }
