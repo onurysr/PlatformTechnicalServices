@@ -133,8 +133,9 @@ namespace PlatformTechnicalServices.Controllers
 
             var user = await _userManager.FindByNameAsync(model.UserName);
 
+
             var roles = await _userManager.GetRolesAsync(user);
-            if (roles[0] == "Passive")
+            if (user.EmailConfirmed == false)
             {
                 ViewBag.Message = "Lütfen Mail üzerinden Hesabınızı Aktive ediniz.";
                 return View(model);

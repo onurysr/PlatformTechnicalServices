@@ -18,6 +18,7 @@ namespace PlatformTechnicalServices.Models.Entities
         public DateTime FaultCreateDate { get; set; }
         public DateTime? TechnicianAssignmentDate { get; set; }
         public DateTime? CompletionDate { get; set; }
+        public string? Subject { get; set; }
         public decimal? TotalPrice { get; set; }
         [ForeignKey(nameof(UserId))]
         public virtual ApplicationUser User { get; set; }

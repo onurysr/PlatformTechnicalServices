@@ -1,0 +1,26 @@
+﻿@model List<MyFaultsViewModel>
+
+<h1>Arıza Kayıt Detay Sayfası</h1>
+
+
+<div class="text-primary" style="text-align:center;font-size:25px">@TempData["message"]</div>
+<table class="table table-bordered">
+    <tr>
+        <th>Arıza Numarası</th>
+        <th>Arıza Konusu</th>
+        <th>Oluşturma Tarihi</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.FaultId</td>
+            <td>@item.Subject</td>
+            <td>@item.CreatedDate</td>
+            <td>
+                <a asp-action="FaultDetails" asp-controller="Customer" class="btn btn-success">Detay</a>
+            </td>
+
+        </tr>
+    }
+
+</table>

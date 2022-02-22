@@ -7,6 +7,8 @@ using PlatformTechnicalServices.Models.Entities;
 using PlatformTechnicalServices.Models.Identity;
 using PlatformTechnicalServices.ViewModels;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PlatformTechnicalServices.Controllers
@@ -18,7 +20,8 @@ namespace PlatformTechnicalServices.Controllers
 
         private readonly MyContext _DbContext;
 
-        public CustomerController(UserManager<ApplicationUser> userManager,MyContext Dbcontext)
+
+        public CustomerController(UserManager<ApplicationUser> userManager, MyContext Dbcontext)
         {
             _userManager = userManager;
             _DbContext = Dbcontext;
@@ -29,8 +32,8 @@ namespace PlatformTechnicalServices.Controllers
         {
             var user = await _userManager.FindByIdAsync(HttpContext.GetUserId());
             if (user == null) return BadRequest(string.Empty);
-            ViewBag.UserName=user.UserName;
-            ViewBag.Email=user.Email;
+            ViewBag.UserName = user.UserName;
+            ViewBag.Email = user.Email;
             return View();
         }
 
@@ -45,7 +48,8 @@ namespace PlatformTechnicalServices.Controllers
                 AtanmaDurumu = false,
                 Description = model.Description,
                 FaultCreateDate = DateTime.Now,
-                UserId=user.Id
+                UserId = user.Id,
+                Subject = model.Subject
             };
 
             _DbContext.FaultRecords.Add(data);
@@ -53,15 +57,55 @@ namespace PlatformTechnicalServices.Controllers
             try
             {
                 _DbContext.SaveChanges();
-                TempData["message"] = "1";
-                return View();
+                TempData["message"] = "Arıza Kaydı Başarılı Bir Şekilde Eklendi";
+                return RedirectToAction(nameof(MyFaults));
             }
             catch (Exception)
             {
-               ModelState.AddModelError(string.Empty, ModelState.ToFullErrorString());
-                TempData["message"] = "2";
+                ModelState.AddModelError(string.Empty, ModelState.ToFullErrorString());
+                TempData["message"] = "Baaaaaaam";
                 return View(model);
             }
+
+        }
+
+        public async Task<IActionResult> MyFaults()
+        {
+
+            var Musteri = await _userManager.FindByIdAsync(HttpContext.GetUserId());
+
+            var data = _DbContext.FaultRecords.Where(x => x.UserId == Musteri.Id).ToList();
+
+            //var model = new MyFaultsViewModel()
+            //{
+            //     CreatedDate = data
+            //}
+
+            var model = new List<MyFaultsViewModel>();
+
+            foreach (var item in data)
+            {
+                MyFaultsViewModel model1 = new MyFaultsViewModel
+                {
+                    CreatedDate = item.FaultCreateDate,
+                    FaultId = item.FaultId,
+                    Subject = item.Subject
+                };
+                model.Add(model1);
+            }
+
+            //var musteri =  await _userManager.FindByIdAsync(HttpContext.GetUserId());
+
+            //var data = _DbContext.FaultRecords.Where(x => x.FaultId == id).ToList();
+
+            //var data = _DbContext.FaultRecords.FirstOrDefault(x => x.FaultId == id);
+            //if (data == null)
+            //{
+            //    ModelState.AddModelError(string.Empty, ModelState.ToFullErrorString());
+            //    return RedirectToAction("Index");
+            //}
+            return View(model);
+
         }
     }
 }

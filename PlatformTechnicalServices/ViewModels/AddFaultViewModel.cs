@@ -16,5 +16,6 @@ namespace PlatformTechnicalServices.ViewModels
         public string Address { get; set; }
         [Required(ErrorMessage = "Açıklama Alanı Girilmek Zorunda")]
         public string Description { get; set; }
+        public string Subject { get; set; }
     }
 }
