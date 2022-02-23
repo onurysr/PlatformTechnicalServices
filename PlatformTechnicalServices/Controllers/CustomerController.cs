@@ -69,6 +69,7 @@ namespace PlatformTechnicalServices.Controllers
 
         }
 
+        [HttpGet]
         public async Task<IActionResult> MyFaults()
         {
 
@@ -76,10 +77,6 @@ namespace PlatformTechnicalServices.Controllers
 
             var data = _DbContext.FaultRecords.Where(x => x.UserId == Musteri.Id).ToList();
 
-            //var model = new MyFaultsViewModel()
-            //{
-            //     CreatedDate = data
-            //}
 
             var model = new List<MyFaultsViewModel>();
 
@@ -93,19 +90,41 @@ namespace PlatformTechnicalServices.Controllers
                 };
                 model.Add(model1);
             }
-
-            //var musteri =  await _userManager.FindByIdAsync(HttpContext.GetUserId());
-
-            //var data = _DbContext.FaultRecords.Where(x => x.FaultId == id).ToList();
-
-            //var data = _DbContext.FaultRecords.FirstOrDefault(x => x.FaultId == id);
-            //if (data == null)
-            //{
-            //    ModelState.AddModelError(string.Empty, ModelState.ToFullErrorString());
-            //    return RedirectToAction("Index");
-            //}
             return View(model);
 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> FaultDetails(int id)
+        {
+
+            var data = _DbContext.FaultRecords.FirstOrDefault(x=>x.FaultId == id);
+
+            var user = await _userManager.FindByIdAsync(data.UserId);
+            var teknisyen = await _userManager.FindByIdAsync(data.TeknisyenId);
+
+            if (data == null)
+            {
+                ModelState.AddModelError(string.Empty, ModelState.ToFullErrorString());
+                return View();
+            }
+
+            var model = new FaultDetailViewModel
+            {
+                Address = data.Address,
+                Description = data.Description,
+                FullName = user.Name + " " + user.Surname,
+                Subject = data.Subject,
+                PhoneNumber = data.PhoneNumber,
+                TechnicianName = teknisyen?.Name,
+                CompletionDate = data.CompletionDate,
+                AssignmentStatus = data.AtanmaDurumu,
+                FaultCreatedDate = data.FaultCreateDate,
+                TechnicianAssignmentDate = data.TechnicianAssignmentDate
+            };
+
+
+            return View(model);
         }
     }
 }
