@@ -18,6 +18,8 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="~/admin-assets/images/favicon.ico" />
 
+    <link rel="stylesheet" href=~/vendor/devextreme/dist/css/dx.light.css/>
+
     @await RenderSectionAsync("Styles",required:false);
 
 </head>
@@ -297,6 +299,13 @@
     <script src="~/admin-assets/js/dashboard.js"></script>
     <script src="~/admin-assets/js/todolist.js"></script>
     <!-- End custom js for this page -->
+
+    <script type="text/javascript" src="~/vendor/exceljs/dist/exceljs.min.js"></script>
+    <script type="text/javascript" src="~/vendor/file-saver/dist/fileSaver.min.js"></script>
+    <script type="text/javascript" src="~/vendor/jszip/dist/jszip.min.js"></script>
+    <script type="text/javascript" src="~/vendor/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="~/vendor/devextreme/dist/js/dx.all.js"></script>
+
     @await RenderSectionAsync("Scripts",required:false);
 </body>
 </html>
