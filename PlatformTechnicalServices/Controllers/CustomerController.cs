@@ -140,9 +140,10 @@ namespace PlatformTechnicalServices.Controllers
             try
             {
                 _DbContext.FaultRecords.Remove(arıza);
+                _DbContext.SaveChanges();
                 TempData["mesaj"] = "Silme işlemi Başarılı";
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(MyFaults));
             }
             catch (Exception)
             {
