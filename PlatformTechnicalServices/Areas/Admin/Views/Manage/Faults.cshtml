@@ -31,7 +31,7 @@
             dataGrid = $("#dxGrid").dxDataGrid({
                 remoteOperations: { paging: true, filtering: true, sorting: true, grouping: true, summary: true, groupPaging: true },
                 dataSource: DevExpress.data.AspNet.createStore({
-                    key: 'id',
+                    key: 'faultId',
                     loadUrl: `${url}/get`,
                     //updateUrl: `${url}/update`,
                     //insertUrl: `${url}/insert`,
