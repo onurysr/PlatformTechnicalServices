@@ -111,6 +111,7 @@ namespace PlatformTechnicalServices.Controllers
 
             var model = new FaultDetailViewModel
             {
+                FaultId=data.FaultId,
                 Address = data.Address,
                 Description = data.Description,
                 FullName = user.Name + " " + user.Surname,

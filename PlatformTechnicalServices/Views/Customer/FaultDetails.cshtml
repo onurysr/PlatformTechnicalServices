@@ -25,9 +25,9 @@
         <td>@(string.IsNullOrEmpty(Model.TechnicianName)? "Henüz atanmadı" : Model.TechnicianName)</td>
         <td>@Model.AssignmentStatus</td>
         <td>@Model.FaultCreatedDate</td>
-        <td>@(DateTime.MinValue(Model.TechnicianAssignmentDate)? "Henüz atanmadı" : Model.TechnicianAssignmentDate)</td>
+        <td>@Model.TechnicianAssignmentDate</td>
         <td>@Model.CompletionDate</td>
-        <td><a href="#">Sil</a></td>
+        <td><a asp-action="Delete" asp-route-id="@Model.FaultId" class="btn btn-danger">Sil</a></td>
     </tr>
 
 
