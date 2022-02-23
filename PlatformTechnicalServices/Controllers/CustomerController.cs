@@ -127,5 +127,29 @@ namespace PlatformTechnicalServices.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var arıza = _DbContext.FaultRecords.FirstOrDefault(x => x.FaultId == id);
+            if (arıza == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                _DbContext.FaultRecords.Remove(arıza);
+                TempData["mesaj"] = "Silme işlemi Başarılı";
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError(string.Empty, ModelState.ToFullErrorString());
+                return View();
+            }
+            
+        }
     }
 }
