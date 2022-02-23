@@ -17,7 +17,7 @@
             <td>@item.Subject</td>
             <td>@item.CreatedDate</td>
             <td>
-                <a asp-action="FaultDetails" asp-controller="Customer" class="btn btn-success">Detay</a>
+                <a asp-action="FaultDetails" asp-controller="Customer" asp-route-id="@item.FaultId" class="btn btn-success">Detay</a>
             </td>
 
         </tr>

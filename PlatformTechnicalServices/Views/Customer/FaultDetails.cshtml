@@ -1,0 +1,34 @@
+﻿@model FaultDetailViewModel
+
+<h1>Arıza Kaydı Detay Sayfası</h1>
+
+<table class="table table-bordered">
+    <tr>
+        <th>İsim</th>
+        <th>Telefon Numarası</th>
+        <th>Konu</th>
+        <th>İçerik</th>
+        <th>Adres</th>
+        <th>Teknisyen Adı</th>
+        <th>AssignmentStatus</th>
+        <th>FaultCreatedDate</th>
+        <th>TechnicianAssignmentDate</th>
+        <th>CompletionDate</th>
+        <th>#</th>
+    </tr>
+    <tr>
+        <td>@Model.FullName</td>
+        <td>@Model.PhoneNumber</td>
+        <td>@(string.IsNullOrEmpty(Model.Subject)? "Yazılmamış" : Model.Subject)</td>
+        <td>@(string.IsNullOrEmpty(Model.Description)? "Yazılmamış" : Model.Description)</td>
+        <td>@Model.Address</td>
+        <td>@(string.IsNullOrEmpty(Model.TechnicianName)? "Henüz atanmadı" : Model.TechnicianName)</td>
+        <td>@Model.AssignmentStatus</td>
+        <td>@Model.FaultCreatedDate</td>
+        <td>@(DateTime.MinValue(Model.TechnicianAssignmentDate)? "Henüz atanmadı" : Model.TechnicianAssignmentDate)</td>
+        <td>@Model.CompletionDate</td>
+        <td><a href="#">Sil</a></td>
+    </tr>
+
+
+</table>
