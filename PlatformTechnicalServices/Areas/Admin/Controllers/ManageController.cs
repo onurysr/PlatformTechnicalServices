@@ -152,6 +152,11 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
             return LocalRedirect($"~/admin/manage/users");
         }
 
+        public IActionResult Faults()
+        {
+            return View();
+        }
+
 
     }
 }
