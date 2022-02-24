@@ -45,6 +45,7 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
 
             var data = _userManager.Users.Select(x => new
             {
+                UserId= x.Id,
                 Key = x.Id,
                 Value = $"{x.Name} {x.Surname}"
             });
