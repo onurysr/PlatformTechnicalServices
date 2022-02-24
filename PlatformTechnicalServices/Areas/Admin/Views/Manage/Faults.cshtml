@@ -8,7 +8,7 @@
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h4 class="card-title">Kullanıcı Detayları</h4>
+                            <h4 class="card-title">@ViewBag.Title</h4>
                         </div><!--end col-->
                     </div>  <!--end row-->
                 </div><!--end card-header-->
@@ -88,12 +88,49 @@
                         formItem: { visible: false }
                     }, 
                     {
-                        caption: 'userId',
-                        dataField: "userId"
+                        caption: 'Müşteri',
+                        dataField: "userId",
+                        lookup:{
+                            dataSource: {
+                                store : DevExpress.data.AspNet.createStore({
+                                    key:"userId",
+                                    loadUrl: "../../../api/faultapi/GetUserLookup"
+                                }),
+                                pageSize:10
+                            },
+                            displayExpr: "value",
+                            valueExpr: "key"
+                        }
                     },
                     {
-                        caption: 'teknisyenId',
-                        dataField: "teknisyenId"
+                        caption: 'Teknisyen',
+                        dataField: "teknisyenId",
+                        lookup:{
+                            dataSource:{
+                                store: DevExpress.data.AspNet.createStore({
+                                    key:"teknisyenId",
+                                    loadUrl:"../../../api/faultapi/GetTeknisyenLookup"
+                                }),
+                                pageSize:10
+                            },
+                            displayExpr:"value",
+                            valueExpr: "key"
+                        }
+                    },
+                                        {
+                        caption: 'Operator',
+                        dataField: "operatorId",
+                        lookup:{
+                            dataSource:{
+                                store: DevExpress.data.AspNet.createStore({
+                                    key:"operatorId",
+                                    loadUrl:"../../../api/faultapi/GetOperatorLookup"
+                                }),
+                                pageSize:10
+                            },
+                            displayExpr:"value",
+                            valueExpr: "key"
+                        }
                     },
                     {
                         caption: 'phoneNumber',

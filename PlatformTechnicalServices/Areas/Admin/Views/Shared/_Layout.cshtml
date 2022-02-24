@@ -18,17 +18,23 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="~/admin-assets/images/favicon.ico" />
 
-    <link rel="stylesheet" href=~/vendor/devextreme/dist/css/dx.light.css/>
+    <link rel="stylesheet" href=~/vendor/devextreme/dist/css/dx.light.css />
 
     @await RenderSectionAsync("Styles",required:false);
 
 </head>
 <body>
+    <style>
+        .navbar .navbar-brand-wrapper .navbar-brand {
+            font-size: 2.5rem;
+        }
+    </style>
+
     <div class="container-scroller">
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo" href="index.html"><img src="~/admin-assets/images/logo.svg" alt="logo" /></a>
+                <a class="navbar-brand brand-logo" href="index.html">Platform@*<img src="~/admin-assets/images/logo.svg" alt="logo" />*@</a>
                 <a class="navbar-brand brand-logo-mini" href="index.html"><img src="~/admin-assets/images/logo-mini.svg" alt="logo" /></a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-stretch">
@@ -198,6 +204,24 @@
                         <a class="nav-link" href="index.html">
                             <span class="menu-title">Dashboard</span>
                             <i class="mdi mdi-home menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Admin/Manage/Users">
+                            <span class="menu-title">Tüm Kullanıcılar</span>
+                            <i class="mdi mdi-account menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Admin/Manage/Faults">
+                            <span class="menu-title">Arıza Kayıtları</span>
+                            <i class="mdi mdi-account menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Admin/Manage/FaultPrices">
+                            <span class="menu-title">Arıza Fiyatları</span>
+                            <i class="mdi mdi-account menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">

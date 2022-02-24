@@ -10,6 +10,7 @@ namespace PlatformTechnicalServices.Models.Entities
         [Key]
         public int FaultId { get; set; }
         public string UserId { get; set; }
+        public string OperatorId { get; set; }
         public string TeknisyenId { get; set; }
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
@@ -24,5 +25,8 @@ namespace PlatformTechnicalServices.Models.Entities
         public virtual ApplicationUser User { get; set; }
         [ForeignKey(nameof(TeknisyenId))]
         public virtual ApplicationUser Teknisyen { get; set; }
+        [ForeignKey(nameof(OperatorId))]
+        public virtual ApplicationUser Operator { get; set; }
+
     }
 }
