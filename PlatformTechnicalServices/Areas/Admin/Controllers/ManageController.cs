@@ -157,6 +157,11 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
             return View();
         }
 
+        public IActionResult FaultPrices()
+        {
+            return View();
+        }
+
 
     }
 }

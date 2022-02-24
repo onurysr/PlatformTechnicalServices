@@ -8,7 +8,7 @@
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h4 class="card-title">@ViewBag.Title</h4>
+                            <h4 class="card-title" style="text-align:center">@ViewBag.Title</h4>
                         </div><!--end col-->
                     </div>  <!--end row-->
                 </div><!--end card-header-->
@@ -23,8 +23,8 @@
 
 @section Scripts
 {
-    <script src="~/vendor/devextreme-aspnet-data/js/dx.aspnet.data.js"></script>
-    <script>
+<script src="~/vendor/devextreme-aspnet-data/js/dx.aspnet.data.js"></script>
+<script>
         var dataGrid = null;
         $(() => {
             var url = '../../../api/faultapi';
@@ -33,7 +33,7 @@
                 dataSource: DevExpress.data.AspNet.createStore({
                     key: 'faultId',
                     loadUrl: `${url}/get`,
-                    //updateUrl: `${url}/update`,
+                    updateUrl: `${url}/update`,
                     //insertUrl: `${url}/insert`,
                     //deleteUrl: `${url}/delete`,
                     onBeforeSend(method, ajaxOptions) {
@@ -44,7 +44,9 @@
                 }),
                 editing: {
                     mode: 'form',
-                    allowUpdating: true
+                    //allowAdding: true,
+                    allowUpdating: true,
+                    //allowDeleting: true,
                 },
                 allowColumnResizing: true,
                 showColumnLines: true,
@@ -86,7 +88,7 @@
                         visible: false,
                         allowFiltering: false,
                         formItem: { visible: false }
-                    }, 
+                    },
                     {
                         caption: 'Müşteri',
                         dataField: "userId",
@@ -159,5 +161,5 @@
                 ]
             }).dxDataGrid("instance");
         });
-    </script>
+</script>
 }

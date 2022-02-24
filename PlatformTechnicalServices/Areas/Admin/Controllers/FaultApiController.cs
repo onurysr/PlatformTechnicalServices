@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using PlatformTechnicalServices.Data;
 using PlatformTechnicalServices.Extensions;
+using PlatformTechnicalServices.Models.Entities;
 using PlatformTechnicalServices.Models.Identity;
 using PlatformTechnicalServices.ViewModels;
 using System;
@@ -63,6 +64,7 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
 
             var data = _userManager.Users.Select(x => new
             {
+                TeknisyenId = x.Id,
                 Key = x.Id,
                 Value = $"{x.Name} {x.Surname}"
             });
@@ -80,6 +82,7 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
 
             var data = _userManager.Users.Select(x => new
             {
+                OperatorId = x.Id,
                 Key = x.Id,
                 Value = $"{x.Name} {x.Surname}"
             });
@@ -92,22 +95,53 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
             return Ok(DataSourceLoader.Load(data, loadoptions));
         }
 
-        //[HttpPut]
-        //public IActionResult Update(int key, string values)
+        [HttpPut]
+        public IActionResult Update(int key, string values)
+        {
+            var data = _DbContext.FaultRecords.FirstOrDefault(x => x.FaultId == key);
+            if (data == null)
+                return StatusCode(StatusCodes.Status409Conflict, new JsonResponseViewModel()
+                {
+                    IsSuccess = false,
+                    ErrorMessage = "Kayıt Bulunamadı"
+                });
+
+            JsonConvert.PopulateObject(values, data);
+            if (!TryValidateModel(data))
+                return BadRequest(ModelState.ToFullErrorString());
+
+            _DbContext.Update(data);
+            _DbContext.SaveChanges();
+
+            return Ok(new JsonResponseViewModel());
+        }
+        //[HttpPost]
+        //public IActionResult Insert(string values)
         //{
-        //    var data = _DbContext.FaultRecords;
+        //    var newFaultRecord = new FaultRecord();
+        //    JsonConvert.PopulateObject(values, newFaultRecord);
+        //    if (!TryValidateModel(newFaultRecord))
+        //        return BadRequest(ModelState.ToFullErrorString());
+
+        //    _DbContext.FaultRecords.Add(newFaultRecord);
+        //    _DbContext.SaveChanges();
+
+        //    return Ok(new JsonResponseViewModel());
+        //}
+        //[HttpDelete]
+        //public IActionResult Delete(int key)
+        //{
+        //    var data = _DbContext.FaultRecords.FirstOrDefault(x=>x.FaultId == key);
         //    if (data == null)
         //        return StatusCode(StatusCodes.Status409Conflict, new JsonResponseViewModel()
         //        {
         //            IsSuccess = false,
-        //            ErrorMessage = "Kullanıcı Bulunamadı"
+        //            ErrorMessage = "Kayıt Bulunamadı"
         //        });
 
-        //    JsonConvert.PopulateObject(values, data);
-        //    if (!TryValidateModel(data))
-        //        return BadRequest(ModelState.ToFullErrorString());
+        //    _DbContext.FaultRecords.Remove(data);
+        //    _DbContext.SaveChanges();
 
-        //    var result = _DbContext.Update(data);
         //    return Ok(new JsonResponseViewModel());
         //}
     }
