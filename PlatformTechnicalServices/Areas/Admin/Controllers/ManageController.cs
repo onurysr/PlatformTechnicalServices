@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace PlatformTechnicalServices.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Operator")]
     public class ManageController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -23,16 +23,18 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             return View();
         }
+        [Authorize(Roles ="Admin")]
         public IActionResult Users()
         {
             var users = _userManager.Users;
             return View(users);
         }
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Details(string? id)
         {
             var user = await _userManager.FindByIdAsync(id);
@@ -61,7 +63,6 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
             ViewBag.Roles = roleList;
             return View(model);
         }
-
         private List<SelectListItem> GetRoleList()
         {
             var roles = _roleManager.Roles;
@@ -152,6 +153,7 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
             return LocalRedirect($"~/admin/manage/users");
         }
 
+        [Authorize(Roles ="Admin,Operator")]
         public IActionResult Faults()
         {
             return View();
@@ -161,12 +163,5 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
         {
             return View();
         }
-
-        public IActionResult Operator()
-        {
-            return View();
-        }
-
-
     }
 }

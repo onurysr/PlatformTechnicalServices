@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 namespace PlatformTechnicalServices.Areas.Admin.Controllers
 {
     [Route("api/[controller]/[action]")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Operator")]
     public class FaultApiController : Controller
     {
         private readonly MyContext _DbContext;
