@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using PlatformTechnicalServices.Data;
 using PlatformTechnicalServices.Extensions;
+using PlatformTechnicalServices.Models;
 using PlatformTechnicalServices.Models.Entities;
 using PlatformTechnicalServices.Models.Identity;
 using PlatformTechnicalServices.ViewModels;
@@ -34,7 +35,7 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Get(DataSourceLoadOptions loadoptions)
         {
-            var data = _DbContext.FaultRecords;
+            var data = _DbContext.FaultRecords.Include(x => x.User).ToList();
 
             return Ok(DataSourceLoader.Load(data, loadoptions));
         }
@@ -42,57 +43,45 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
         //user bilgilerini getiren bir lookup kodu yazılacak
         public IActionResult GetUserLookup(DataSourceLoadOptions loadoptions)
         {
-            //var data = await _userManager.FindByIdAsync(id);
-
-            var data = _userManager.Users.Select(x => new
+            var users = _userManager.Users.Select(x => new
             {
-                UserId= x.Id,
+                UserId = x.Id,
                 Key = x.Id,
                 Value = $"{x.Name} {x.Surname}"
             });
-            //var model = new
-            //{
-            //    Key = data.Id,
-            //    Value = $"{data.Name} {data.Surname}"
-            //};
 
-            return Ok(DataSourceLoader.Load(data, loadoptions));
+            return Ok(DataSourceLoader.Load(users, loadoptions));
         }
         public IActionResult GetTeknisyenLookup(DataSourceLoadOptions loadoptions)
         {
-            //var data = await _userManager.FindByIdAsync(id);
+            var data = _DbContext.Users.ToList();
+            var model = new List<ApplicationUser>();
 
-            var data = _userManager.Users.Select(x => new
+            foreach (var user in data)
             {
-                TeknisyenId = x.Id,
-                Key = x.Id,
-                Value = $"{x.Name} {x.Surname}"
-            });
-            //var model = new
-            //{
-            //    Key = data.Id,
-            //    Value = $"{data.Name} {data.Surname}"
-            //};
-
-            return Ok(DataSourceLoader.Load(data, loadoptions));
+                if (_userManager.IsInRoleAsync(user, RoleModels.Teknisyen).Result)
+                {
+                    model.Add(user);
+                }
+            }
+            return Ok(DataSourceLoader.Load(model, loadoptions));
         }
         public IActionResult GetOperatorLookup(DataSourceLoadOptions loadoptions)
         {
-            //var data = await _userManager.FindByIdAsync(id);
+            var data = _DbContext.Users.ToList();
+            var model = new List<ApplicationUser>();
 
-            var data = _userManager.Users.Select(x => new
+            foreach (var user in data)
             {
-                OperatorId = x.Id,
-                Key = x.Id,
-                Value = $"{x.Name} {x.Surname}"
-            });
-            //var model = new
-            //{
-            //    Key = data.Id,
-            //    Value = $"{data.Name} {data.Surname}"
-            //};
+                if (_userManager.IsInRoleAsync(user, RoleModels.Operator).Result)
+                {
+                    model.Add(user);
+                }
+            }
 
-            return Ok(DataSourceLoader.Load(data, loadoptions));
+
+
+            return Ok(DataSourceLoader.Load(model, loadoptions));
         }
 
         [HttpPut]

@@ -91,18 +91,7 @@
                     },
                     {
                         caption: 'Müşteri',
-                        dataField: "userId",
-                        lookup:{
-                            dataSource: {
-                                store : DevExpress.data.AspNet.createStore({
-                                    key:"userId",
-                                    loadUrl: "../../../api/faultapi/GetUserLookup"
-                                }),
-                                pageSize:10
-                            },
-                            displayExpr: "value",
-                            valueExpr: "key"
-                        }
+                        dataField: "user.userName"
                     },
                     {
                         caption: 'Teknisyen',
@@ -110,13 +99,13 @@
                         lookup:{
                             dataSource:{
                                 store: DevExpress.data.AspNet.createStore({
-                                    key:"teknisyenId",
+                                    key:"Id",
                                     loadUrl:"../../../api/faultapi/GetTeknisyenLookup"
                                 }),
                                 pageSize:10
                             },
-                            displayExpr:"value",
-                            valueExpr: "key"
+                            displayExpr:"userName",
+                            valueExpr: "id"
                         }
                     },
                                         {
@@ -125,13 +114,13 @@
                         lookup:{
                             dataSource:{
                                 store: DevExpress.data.AspNet.createStore({
-                                    key:"operatorId",
+                                    key:"Id",
                                     loadUrl:"../../../api/faultapi/GetOperatorLookup"
                                 }),
                                 pageSize:10
                             },
-                            displayExpr:"value",
-                            valueExpr: "key"
+                            displayExpr:"userName",
+                            valueExpr: "id"
                         }
                     },
                     {
