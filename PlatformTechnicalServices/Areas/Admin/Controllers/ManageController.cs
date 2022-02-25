@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace PlatformTechnicalServices.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Teknisyen")]
     public class ManageController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -161,12 +161,5 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
         {
             return View();
         }
-
-        public IActionResult Operator()
-        {
-            return View();
-        }
-
-
     }
 }
