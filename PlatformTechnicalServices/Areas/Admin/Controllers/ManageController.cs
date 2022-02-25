@@ -162,6 +162,11 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
             return View();
         }
 
+        public IActionResult Operator()
+        {
+            return View();
+        }
+
 
     }
 }

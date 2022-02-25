@@ -40,18 +40,7 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
             return Ok(DataSourceLoader.Load(data, loadoptions));
         }
 
-        //user bilgilerini getiren bir lookup kodu yazılacak
-        public IActionResult GetUserLookup(DataSourceLoadOptions loadoptions)
-        {
-            var users = _userManager.Users.Select(x => new
-            {
-                UserId = x.Id,
-                Key = x.Id,
-                Value = $"{x.Name} {x.Surname}"
-            });
-
-            return Ok(DataSourceLoader.Load(users, loadoptions));
-        }
+        //Teknisyen bilgilerini getiren bir lookup kodu yazılacak
         public IActionResult GetTeknisyenLookup(DataSourceLoadOptions loadoptions)
         {
             var data = _DbContext.Users.ToList();
@@ -78,9 +67,6 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
                     model.Add(user);
                 }
             }
-
-
-
             return Ok(DataSourceLoader.Load(model, loadoptions));
         }
 
