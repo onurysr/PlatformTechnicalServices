@@ -149,6 +149,10 @@ namespace PlatformTechnicalServices.Controllers
                 {
                     return LocalRedirect("~/Admin/Manage/Index");
                 }
+                else if (roles[0]=="Operator")
+                {
+                    return LocalRedirect("~/Admin/Manage/Faults");
+                }
                 else if(roles[0] == "Teknisyen")
                 {
                     return LocalRedirect("~/Admin/Manage/Index");
