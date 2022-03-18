@@ -155,7 +155,7 @@ namespace PlatformTechnicalServices.Controllers
                 }
                 else if(roles[0] == "Teknisyen")
                 {
-                    return LocalRedirect("~/Admin/Manage/Index");
+                    return LocalRedirect("~/Admin/Teknisyen/TeknisyenArizaKayitlarim");
                 }
                 else
                 {

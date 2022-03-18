@@ -110,13 +110,20 @@
                     dataField: "description",
                 },
                 {
-                    caption: 'atanmaDurumu',
+                    caption: 'Tamamlandı mı?',
                     dataField: "atanmaDurumu",
                     dataType: "boolean"
                 },
                 {
                     dataField: "faultCreateDate",
                     caption: "Kayıt Tarihi",
+                    dataType: "datetime",
+                    format: 'dd/MM/yyyy HH:mm',
+                    sortOrder:"desc"
+                },
+                {
+                    dataField: "CompletionDate",
+                    caption: "Tamamlanma Tarihi",
                     dataType: "datetime",
                     format: 'dd/MM/yyyy HH:mm',
                     sortOrder:"desc"

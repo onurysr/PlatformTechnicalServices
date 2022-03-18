@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using PlatformTechnicalServices.Extensions;
 using PlatformTechnicalServices.Models;
@@ -82,17 +84,27 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
             return Ok(new JsonResponseViewModel());
         }
 
-        //public IActionResult GetRolesLookUp(string key, DataSourceLoadOptions loadOptions)
-        //{
-        //    var users = _userManager.Users.Where(x=>x.Id ==key).ToList();
-        //    //var role = _userManager.GetRolesAsync(user);
-        //    //var roles = _roleManager.Roles.ToList();
-        //    //var model = new List<ApplicationRole>();
-        //    //foreach (var role in roles)
-        //    //{
-        //    //    model.Add(role);
-        //    //}
-        //    return Ok(DataSourceLoader.Load(model, loadOptions));
-        //}
+        public IActionResult GetRolesLookUp(DataSourceLoadOptions loadOptions)
+        {
+            var roles = _roleManager.Roles.Select(x => new
+            {
+                Key = x.Id,
+                Value = x.Name
+            });
+
+            return Ok(DataSourceLoader.Load(roles, loadOptions));
+        }
+
+        private List<SelectListItem> GetRoleList()
+        {
+            var roles = _roleManager.Roles;
+            var rolList = new List<SelectListItem>();
+
+            foreach (var role in roles)
+            {
+                rolList.Add(new SelectListItem(role.Name, role.Id.ToString()));
+            }
+            return rolList;
+        }
     }
 }

@@ -1,0 +1,24 @@
+﻿@using PlatformTechnicalServices.Models.Entities
+@model List<FaultRecord>
+
+<h1>Tamamlanan arızalar</h1>
+<br />
+<table class=table-borderless>
+    <tr>
+        <th>Id</th>
+        <th>Ad</th>
+        <th>Şikayet</th>
+        <th>Adres</th>
+        <th>Fatura</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.FaultId</td>
+            <td>@item.User.Name</td>
+            <td>@item.Subject</td>
+            <td>@item.Address</td>
+            <td><a href="/Admin/Teknisyen/CreateFatura/@item.FaultId" class="btn btn-danger">Fatura Çıkart</a></td>
+        </tr>
+    }
+</table>

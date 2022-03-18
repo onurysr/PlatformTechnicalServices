@@ -1,0 +1,41 @@
+﻿@using PlatformTechnicalServices.Models.Entities
+@model FaultRecord
+
+@{
+    var faultPriceObj = (List<FaultPrices>)TempData["faultPriceObj"];
+}
+
+<h1>Fatura Oluştur</h1>
+<br />
+@*<table class=table-borderless>
+    <tr>
+    <th>Id</th>
+    <th>Ad</th>
+    <th>Şikayet</th>
+    <th>Adres</th>
+    </tr>
+    <tr>
+    <td>@Model.FaultId</td>
+    <td>@Model.User.Name</td>
+    <td>@Model.Subject</td>
+    <td>@Model.Address</td>
+    </tr>
+    </table>*@
+
+
+<table class=table-bordered>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Price</th>
+    </tr>
+    @foreach (var obj in faultPriceObj)
+    {
+        <tr>
+            <td>@obj.FaultId</td>
+            <td>@obj.FaultName</td>
+            <td>@obj.FaultPrice</td>
+        </tr>
+    }
+</table>
+

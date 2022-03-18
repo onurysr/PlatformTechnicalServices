@@ -69,6 +69,7 @@ namespace PlatformTechnicalServices.Areas.Admin.Controllers
 
             _DbContext.Update(data);
             _DbContext.SaveChanges();
+          
 
             return Ok(new JsonResponseViewModel());
 
